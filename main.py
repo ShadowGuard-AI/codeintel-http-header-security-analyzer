@@ -35,7 +35,10 @@ def analyze_headers(url):
     """
     try:
         response = requests.get(url, timeout=10)  # Add timeout to prevent hanging
-        response.raise_for_status()  # Raise HTTPError for bad responses (4xx or 5xx)
+        # The status is logged, not raised on: an error page still sends
+        # headers, and a header scanner that refuses 4xx and 5xx responses
+        # never sees the headers of the pages most likely to be misconfigured.
+        logging.info(f"{url} answered with status {response.status_code}")
     except requests.exceptions.RequestException as e:
         logging.error(f"Error fetching URL: {e}")
         raise  # Re-raise the exception to be handled in main()
@@ -51,8 +54,14 @@ def analyze_headers(url):
         analysis_results["HSTS"] = "Strict-Transport-Security header found."
         logging.info(f"HSTS header found for {url}")
 
-    # Check for X-Frame-Options
-    if "X-Frame-Options" not in headers:
+    # Check for X-Frame-Options. A Content-Security-Policy frame-ancestors
+    # directive is the modern replacement, so its presence counts as
+    # framing protection rather than a missing header finding.
+    csp_value = headers.get("Content-Security-Policy", "")
+    if "X-Frame-Options" not in headers and "frame-ancestors" in csp_value:
+        analysis_results["X-Frame-Options"] = "No X-Frame-Options header, but the Content-Security-Policy carries frame-ancestors."
+        logging.info(f"Framing restricted by CSP frame-ancestors for {url}")
+    elif "X-Frame-Options" not in headers:
         analysis_results["X-Frame-Options"] = "Missing X-Frame-Options header. Vulnerable to clickjacking attacks."
         logging.warning(f"Missing X-Frame-Options header for {url}")
     else:
@@ -132,7 +141,4 @@ def main():
 
 
 if __name__ == "__main__":
-    # Example Usage:
-    # To run: python main.py https://example.com
-    # To run with verbose output: python main.py https://example.com -v
     main()
