@@ -1,3 +1,5 @@
+![Banner](banner.png)
+
 # codeintel-HTTP-Header-Security-Analyzer
 Analyzes HTTP response headers for common security misconfigurations (e.g., missing Strict-Transport-Security, X-Frame-Options, Content-Security-Policy). - Focused on Tools for static code analysis, vulnerability scanning, and code quality assurance
 
