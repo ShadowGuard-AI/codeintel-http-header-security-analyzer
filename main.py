@@ -34,6 +34,9 @@ def analyze_headers(url):
         requests.exceptions.RequestException: If there's an error making the HTTP request.
     """
     try:
+        # I let requests follow redirects, so the headers I check are
+        # the final page's, not the first response's. A redirector with
+        # no HSTS of its own is invisible in this result.
         response = requests.get(url, timeout=10)  # Add timeout to prevent hanging
         # The status is logged, not raised on: an error page still sends
         # headers, and a header scanner that refuses 4xx and 5xx responses
@@ -51,6 +54,9 @@ def analyze_headers(url):
         analysis_results["HSTS"] = "Missing Strict-Transport-Security header.  Vulnerable to man-in-the-middle attacks."
         logging.warning(f"Missing HSTS header for {url}")
     else:
+        # I check presence only, here and for every header below. A
+        # Strict-Transport-Security value of max-age=0, which turns
+        # HSTS off, still earns the found message from this branch.
         analysis_results["HSTS"] = "Strict-Transport-Security header found."
         logging.info(f"HSTS header found for {url}")
 
@@ -128,6 +134,9 @@ def main():
         analysis = analyze_headers(url)
 
         print(f"Security Analysis for {url}:\n")
+        # I print the findings and stop. A page missing every header
+        # still exits 0, so the printout is the verdict and a script
+        # wrapping this tool has to read the words, not the code.
         for header, result in analysis.items():
             print(f"{header}: {result}")
 
