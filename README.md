@@ -1,11 +1,11 @@
-![The straight road at dusk: the nearest sign fixed on its post with its shutter lit and its transformer housing and cable drop plain against dusk violet, the office window and key hooks in the middle distance, a second sign dark with one tube broken at the bend, and smaller signs pricking the dark far off, no lettering anywhere](intro-banner.png)
+![A lamp held up close to the bow's painted bands, white, yellow, and oxide red, with the inspector's hand at the frame edge and the black hull plates rising above](intro-banner.png)
 
 
 # codeintel-HTTP-Header-Security-Analyzer
 
-![A census reach of the old road at last light: the foreground sign lit on its post, a second sign dark with a broken tube and a lit office window below it, smaller signs far down the straight road, and the name codeintel-http-header-security-analyzer in neon across the foreground parapet, the one inscription in the picture](banner.png)
+![An inspector carrying a lit lamp walking the harbour wall at first light beside the bow of a black coaster, the anchor above him in its hawse and mooring lines running to the bollards](banner.png)
 
-![One roadside motel sign at dusk on a single post above a low parapet, its vacancy shutter lit in neon, its transformer housing behind the cabinet, its painted arrow pointing down, and the name in Bebas Neue in diner chrome on dusk violet beneath the post, the heading plate](logo.png)
+![The bow of a black coaster straight on at the harbour wall, an oxide red band at the waterline, a plain anchor in its hawse and painted bands at the stem](logo.png)
 
 ![The census reach in three depths: far signs stay fixed while dusk deepens once, the nearest sign warms its tubes in sequence and its shutter lights, holds, darkens, and lights again, one tube on the second sign flickers at its broken bend, and the atlas, register, and key hooks on the counter stay still](scene.svg)
 

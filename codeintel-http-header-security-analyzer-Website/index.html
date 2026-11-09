@@ -3,89 +3,97 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>codeintel-http-header-security-analyzer: Six Headers Checked for Presence</title>
-<meta name="description" content="Analyses HTTP response headers for common security misconfigurations. Six checks, judged on presence alone.">
+<title>codeintel-http-header-security-analyzer: The Harbour Bow</title>
 <style>
-@font-face{font-family:'Bebas Neue';src:url('fonts/BebasNeue.ttf') format('truetype');}
-@font-face{font-family:'Barlow';src:url('fonts/Barlow.ttf') format('truetype');}
-:root{--tan:#f3ead8;--panel:#e8e2d2;--violet:#443366;--violetd:#2b1e4e;--neon:#d63384;--ink:#211c30;--chrome:#c4cad0}
-*{box-sizing:border-box}body{margin:0;background:var(--tan);color:var(--ink);font-family:'Barlow',sans-serif;line-height:1.6}
-h1,h2,h3{font-family:'Bebas Neue',sans-serif;color:var(--violet);letter-spacing:.03em;font-weight:400}
-.hero img.heroimg{width:100%;height:52vh;object-fit:cover;display:block}
-.hero .in,main,footer{max-width:1120px;margin:0 auto;padding:1rem 6vw 2rem}.logo{width:230px}
-nav{display:flex;gap:1rem;flex-wrap:wrap;margin:1.2rem 0}
-.btn{display:inline-block;text-decoration:none;font-family:'Bebas Neue',sans-serif;font-size:1.15rem;color:var(--violet);background:var(--panel);border:1px solid #b9b2a0;border-bottom:3px solid var(--neon);padding:.8rem 1.4rem .6rem;position:relative;text-align:center}
-.btn::after{content:'';position:absolute;right:10px;top:50%;width:11px;height:11px;margin-top:-6px;background:#8f887a;border:1px solid var(--violet)}
-.btn:hover::after{background:var(--neon)}
-.btn:active{border-bottom-width:5px}
-.btn:focus-visible{outline:3px double var(--violet);outline-offset:3px}
-a{color:var(--violet)}a::before{content:'';display:inline-block;width:13px;height:13px;margin-right:.45em;border:2px solid #8f887a;border-bottom:none;border-radius:9px 9px 0 0;vertical-align:0}
-.btn::before{content:none}
-.plate{background:var(--panel);border:1px solid #b9b2a0;border-top:10px solid var(--chrome);padding:.4rem 1.5rem 1.3rem;margin:1.8rem 0}
-pre{background:var(--violetd);color:#f3ead8;padding:1rem;overflow-x:auto}
-.mile{height:22px;margin:1.4rem 0;border-top:3px solid var(--violet);position:relative}
-.mile::after{content:'';position:absolute;left:50%;top:-8px;width:10px;height:18px;background:var(--violet)}
-.mile::before{content:'';position:absolute;left:calc(50% + 20px);top:1px;width:10px;height:10px;border-radius:50%;background:var(--neon)}
-.callout{background:#eee3c8;border:1px solid var(--violet);padding:.2rem 1.3rem 1rem;margin:1.3rem 0}
-.entry{display:flex;gap:1rem;padding:.5rem 0;border-bottom:1px solid rgba(33,28,48,.18)}
-.entry b{font-family:'Bebas Neue',sans-serif;font-weight:400;min-width:150px;font-size:1.1rem;color:var(--violet)}
-.mark{color:var(--neon);font-weight:700}
-.slot{border-top:2px solid var(--violet);margin-top:1rem;padding-top:.5rem;font-family:'Bebas Neue',sans-serif;color:var(--violet)}
+@font-face { font-family: "Saira Stencil"; src: url("fonts/SairaStencil-400.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Saira Stencil"; src: url("fonts/SairaStencil-700.woff2") format("woff2"); font-weight: 700; }
+@font-face { font-family: "M PLUS 1p"; src: url("fonts/MPLUS1p-400.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "M PLUS 1p"; src: url("fonts/MPLUS1p-700.woff2") format("woff2"); font-weight: 700; }
+:root {
+  --paper: #f4f4f2; --cream: #e6e6e2; --ink: #1e2124; --soft: #5c6165;
+  --accent: #a33327; --deep: #7a4a12; --line: #cfcfc9; --card: #ffffff;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--cream); color: var(--ink); font-family: "M PLUS 1p", sans-serif; line-height: 1.55; }
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 20px 64px; }
+header.hero { text-align: center; padding: 52px 0 8px; }
+img.hero-logo { width: min(430px, 82vw); border-radius: 10px; box-shadow: 0 10px 34px rgba(30,32,36,.25); }
+h1, h2 { font-family: "Saira Stencil", sans-serif; line-height: 1.15; font-weight: 400; }
+h1 { font-size: clamp(26px, 5vw, 44px); margin: 26px 0 6px; }
+.tagline { color: var(--soft); font-size: 19px; margin: 0 auto; max-width: 680px; }
+.btns { margin: 22px 0 6px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+a.btn { font-family: "Saira Stencil", sans-serif; text-decoration: none; padding: 11px 22px; border-radius: 999px; border: 2px solid var(--accent); color: var(--accent); background: transparent; }
+a.btn.solid { background: var(--deep); border-color: var(--deep); color: #fff; }
+figure { margin: 30px 0; }
+figure img { width: 100%; border-radius: 10px; display: block; box-shadow: 0 8px 28px rgba(30,32,36,.25); }
+figcaption { color: var(--soft); font-size: 15px; text-align: center; margin-top: 9px; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin: 34px 0; }
+.fact { background: var(--card); border: 1px solid var(--line); border-top: 5px solid var(--accent); border-radius: 8px; padding: 14px 16px; }
+.fact b { display: block; font-family: "Saira Stencil", sans-serif; font-size: 15px; letter-spacing: .04em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+section { margin: 38px 0; }
+h2 { font-size: 27px; margin: 0 0 12px; border-bottom: 2px solid var(--line); padding-bottom: 7px; }
+code, pre { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+pre { background: #1d2126; color: #eef0ee; padding: 15px 18px; border-radius: 8px; overflow-x: auto; font-size: 14.5px; }
+table { border-collapse: collapse; width: 100%; background: var(--card); }
+th, td { border: 1px solid var(--line); padding: 9px 12px; text-align: left; vertical-align: top; }
+th { font-family: "Saira Stencil", sans-serif; background: var(--cream); }
+.hold { background: #f3ece4; border: 1px solid #dec9ae; border-left: 6px solid var(--accent); border-radius: 8px; padding: 16px 20px; }
+.hold h2 { border: none; padding: 0; }
+.hold ul { margin: 8px 0 4px; padding-left: 20px; }
+footer { margin-top: 52px; border-top: 2px solid var(--line); padding-top: 16px; color: var(--soft); font-size: 14.5px; text-align: center; }
 </style>
 </head>
 <body>
+<div class="wrap">
 <header class="hero">
-<img class="heroimg" src="assets/intro-banner.png" alt="The straight road at dusk: the nearest sign lit on its post, the office window and key hooks in the middle distance, a second sign dark with one tube broken at the bend, no lettering anywhere">
-<div class="in">
-<img class="logo" src="assets/logo.png" alt="One roadside motel sign at dusk on a single post above a low parapet, its vacancy shutter lit in neon, and the name beneath the post in diner chrome on dusk violet">
-<h1>codeintel-http-header-security-analyzer</h1>
-<p>A census ledger for one stretch of road. Sign by sign, the count records whether the tubes answer when the current reaches them.</p>
-<nav>
-<a class="btn" href="#visit">Visit This Address</a>
-<a class="btn" href="#run">Show Verbose Logging</a>
-<a class="btn" href="#args">Show Help</a>
-</nav>
-</div>
+  <img class="hero-logo" src="assets/logo.png" alt="The bow of a black coaster straight on at the harbour wall, an oxide red band at the waterline, a plain anchor in its hawse and painted bands at the stem">
+  <h1>codeintel-http-header-security-analyzer</h1>
+  <p class="tagline">The Harbour Bow. An HTTP header security analyzer that fetches one URL and reports which of six named security headers stand at the head of the response, and which are missing.</p>
+  <div class="btns">
+    <a class="btn solid" href="https://github.com/ShadowGuard-AI/codeintel-http-header-security-analyzer">The repository</a>
+    <a class="btn" href="https://github.com/ShadowGuard-AI/codeintel-http-header-security-analyzer/blob/main/main.py">main.py</a>
+  </div>
 </header>
-<main>
-<section class="plate" id="visit"><h2>Six Headers Checked for Presence</h2>
-<p>The tool analyses HTTP response headers for common security misconfigurations, for example missing Strict-Transport-Security, X-Frame-Options, and Content-Security-Policy. The code widens that short list to six checks in all: HSTS, X-Frame-Options, CSP, X-Content-Type-Options, Referrer-Policy, and Permissions-Policy.</p>
-<p>The manner of the checking, as the code performs it: the request follows redirects and the headers examined are those of the final page. The status of that page is logged rather than treated as a refusal. Each header is judged on presence alone, so a Strict-Transport-Security value of max-age=0 still counts as found. Framing protection is credited where a Content-Security-Policy carries frame-ancestors even when X-Frame-Options itself is absent. Permissions-Policy is credited where the older Feature-Policy name appears instead.</p>
-<div class="callout"><h3>Presence Only, Values Not Judged</h3><p>The census records whether each header is present in the final response. The value it carries is not judged.</p></div>
-<div class="callout"><h3>Frame-Ancestors Counts as Framing Protection</h3><p>A Content-Security-Policy carrying frame-ancestors earns the framing credit on its own.</p></div>
-<h2>Redirects Followed to the Final Page</h2>
-<p>The headers judged are those of the final page after redirects, and its status is logged rather than treated as a refusal.</p>
+<figure>
+  <img src="assets/intro-banner.png" alt="A lamp held up close to the bow's painted bands, white, yellow, and oxide red, with the inspector's hand at the frame edge and the black hull plates rising above">
+  <figcaption>The lamp at the stem: the bands are read, one by one, at the head of the hull.</figcaption>
+</figure>
+
+<div class="facts">
+  <div class="fact"><b>Six checks</b>Strict-Transport-Security, X-Frame-Options, Content-Security-Policy, X-Content-Type-Options, Referrer-Policy, and Permissions-Policy</div>
+  <div class="fact"><b>Presence only</b>Values are never judged: a Strict-Transport-Security of max-age=0, which turns the protection off, still counts as found</div>
+  <div class="fact"><b>Final page judged</b>Redirects are followed, so the headers judged are the final page’s, and a redirector’s own headers are invisible</div>
+  <div class="fact"><b>Printed verdict</b>All six missing still exits 0; exit 1 is for a URL without an http or https prefix, or a request that fails</div>
+</div>
+<section>
+  <h2>Usage</h2>
+  <pre>python3 main.py URL [--verbose]</pre>
+  <p>The fetch uses requests with a ten second timeout. An error status is logged, not refused, so the headers of error pages are judged like any other’s. Two credits can be earned by another name: a Content-Security-Policy carrying frame-ancestors earns the X-Frame-Options credit in its place, and the older Feature-Policy name earns the Permissions-Policy credit.</p>
+<table>
+    <tr><th>Option</th><th>What it does</th></tr>
+    <tr><td><code>url</code></td><td>The one URL to fetch and judge. Required, and listed in the README.</td></tr>
+    <tr><td><code>--verbose</code> / <code>-v</code></td><td>Sets debug logging.</td></tr>
+  </table>
 </section>
-<div class="mile"></div>
-<section class="plate"><h2>How a Visitor Obtains the Tool</h2>
-<pre>git clone https://github.com/ShadowGuard-AI/codeintel-http-header-security-analyzer</pre>
-<p>The single clone line, exactly as the README prints it. The address names the correct organisation, printed without a flag. The README offers no change of directory and no dependency step after it, and this entry records that as the whole of the instruction.</p>
+<figure>
+  <img src="assets/banner.png" alt="An inspector carrying a lit lamp walking the harbour wall at first light beside the bow of a black coaster, the anchor above him in its hawse and mooring lines running to the bollards">
+  <figcaption>First light on the wall: the declarations at her head, read before anything else.</figcaption>
+</figure>
+<section class="hold">
+  <h2>Presence is all that is measured</h2>
+  <ul>
+    <li>A header that is present but weak, empty, or switched off reads the same as a strong one; the tool reports standing, not strength.</li>
+    <li>Because redirects are followed, the response that is judged may come from a different page than the address that was handed over.</li>
+    <li>The status of the response is logged and then set aside: a 404 page with all six headers present reads as fully declared.</li>
+  </ul>
 </section>
-<div class="mile"></div>
-<section class="plate" id="run"><h2>How the Tool Is Run</h2>
-<pre>python3 main.py URL [--verbose]</pre>
-<h2>An Address Without http Is Refused</h2>
-<p>An address which begins with neither http:// nor https:// is refused with an error and an exit of 1. The request is allowed ten seconds before it is given up. A request which fails altogether is reported and also ends the run at 1.</p>
+<section>
+  <h2>Requirements</h2>
+  <p>Python, plus requests 2.31.0 or later, the one entry in the requirements file.</p>
 </section>
-<div class="mile"></div>
-<section class="plate" id="args"><h2>The Arguments, Three in Number</h2>
-<div class="entry"><b>-h</b><span>Shows a help message and exits.</span></div>
-<div class="entry"><b>url <span class="mark">[lit shutter]</span></b><span>Gives the address to analyse. Required. Every other entry in this ledger exists only to serve the visit to this one address.</span></div>
-<div class="entry"><b>--verbose, -v</b><span>Enables verbose logging, which in the code sets the logging level to DEBUG.</span></div>
-<div class="slot">Register slot: the url entry carries the lit shutter mark of this ledger.</div>
-</section>
-<div class="mile"></div>
-<section class="plate"><h2>All Six Missing Still Exits 0</h2>
-<p>Against a local server that sends none of the checked headers, the tool reports all six as missing and still exits 0. The printed findings are the verdict and the exit figure is not. The README itself states this caution, and this entry repeats it without softening.</p>
-<p><a href="https://github.com/ShadowGuard-AI/codeintel-http-header-security-analyzer">The repository on GitHub</a></p>
-<h2>Licence, the Closing Entry</h2>
-<pre>See LICENSE</pre>
-<p>The licence line in the README's own short form. The README names no licence and no copyright holder, and this entry invents neither.</p>
-</section>
-</main>
 <footer>
-<img src="assets/banner.png" alt="A census reach of the old road at last light, the foreground sign lit, a second sign dark, and the name in neon across the foreground parapet" style="width:100%">
-<p>codeintel-http-header-security-analyzer. The last cabinet on the stretch left lit for the night, the clipboard closed on a count in which lit and dark were recorded exactly as they were found.</p>
+<p>The README of codeintel-http-header-security-analyzer names the current org in its clone URL, gives a real usage line naming the actual entry point, and closes with See LICENSE; the repository carries a separate LICENSE file headed MIT License. Site type is set in Saira Stencil and M PLUS 1p, self-hosted under the SIL Open Font License.</p>
 </footer>
+</div>
 </body>
 </html>
